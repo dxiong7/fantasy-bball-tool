@@ -1,0 +1,5 @@
+{
+  "name": "Yahoo Fantasy Tool",
+  "description": "A tool to help you set your optimal fantasy basketball lineup for the current day by starting all active players. This app simulates the process of connecting to the Yahoo Fantasy API, fetching your team's roster, and automatically moving active players from your bench to starting positions.",
+  "requestFramePermissions": []
+}
