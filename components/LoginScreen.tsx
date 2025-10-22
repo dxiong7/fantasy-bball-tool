@@ -4,6 +4,9 @@ import { YahooIcon, CheckCircleIcon } from './Icons';
 import { getLoginUrl } from '../services/authService';
 
 const LoginScreen: React.FC = () => {
+  const isDevelopment = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.includes('ngrok.io');
 
   const handleLogin = () => {
     window.location.href = getLoginUrl();
@@ -42,9 +45,19 @@ const LoginScreen: React.FC = () => {
           Connect with Yahoo Fantasy
         </button>
       </div>
-      <p className="text-xs text-gray-500 mt-6">
-        This is a demo application. Clicking connect will use mock data and does not actually connect to your Yahoo account.
-      </p>
+      
+      {isDevelopment ? (
+        <div className="mt-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+          <p className="text-sm text-blue-300 font-medium mb-2">🔧 Development Mode</p>
+          <p className="text-xs text-blue-200">
+            Using mock authentication for testing. In production, this will connect to your real Yahoo Fantasy account.
+          </p>
+        </div>
+      ) : (
+        <p className="text-xs text-gray-500 mt-6">
+          Secure OAuth connection to Yahoo Fantasy Sports.
+        </p>
+      )}
     </div>
   );
 };

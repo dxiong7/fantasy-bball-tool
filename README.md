@@ -30,13 +30,38 @@ This is a web application designed to help you automate your Yahoo Fantasy Baske
     npm install
     ```
 
-3.  **Configure your Yahoo Client ID:**
-    - Open the file `services/authService.ts`.
-    - Replace the placeholder value `'YOUR_CLIENT_ID'` with your actual Yahoo application Client ID.
-    - **Important:** Ensure your Yahoo application's "Redirect URI" is set to `http://localhost:3000/callback`.
-
-4.  **Run the application:**
+3.  **Run the application:**
     ```bash
     npm run dev
     ```
     The application will be available at `http://localhost:3000`.
+
+## Development vs Production
+
+### 🔧 Development Mode (Local)
+- **Mock Authentication**: Automatically uses mock authentication for testing
+- **No Yahoo OAuth Required**: Click "Connect" to instantly access the dashboard
+- **Full Functionality**: All features work with mock data
+- **Visual Indicator**: Blue development banner shows you're in mock mode
+
+### 🚀 Production Deployment
+
+1. **Configure Yahoo OAuth:**
+   - Open `services/authService.ts`
+   - Replace `CLIENT_ID` with your actual Yahoo application Client ID
+   - Update `REDIRECT_URI` to your production domain: `https://your-domain.com/callback`
+
+2. **Update Yahoo Developer App:**
+   - Go to [Yahoo Developer Network](https://developer.yahoo.com/)
+   - Set Redirect URI to: `https://your-domain.com/callback`
+
+3. **Deploy:**
+   ```bash
+   npm run build
+   # Deploy the 'dist' folder to your hosting service
+   ```
+
+### Environment Detection
+The app automatically detects the environment:
+- **Development**: `localhost`, `127.0.0.1`, `ngrok.io` → Uses mock authentication
+- **Production**: Any other domain → Uses real Yahoo OAuth
