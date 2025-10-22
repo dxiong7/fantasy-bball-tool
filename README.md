@@ -1,20 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Yahoo Fantasy Lineup Optimizer
 
-# Run and deploy your AI Studio app
+This is a web application designed to help you automate your Yahoo Fantasy Basketball lineups. It connects to your Yahoo Fantasy account, fetches your teams and rosters, and provides a tool to automatically start your active players for the current day.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/13PQPYr7EsYYyYjhoDb2olY5fRj61RZvU
+*   **Yahoo Fantasy Integration:** Securely connect your Yahoo account using OAuth 2.0.
+*   **Team Management:** View all your fantasy basketball teams in one place.
+*   **Roster Visualization:** See your full roster, including starters, bench players, and injured players.
+*   **Automatic Lineup Optimization:** With a single click, automatically move active players from your bench to your starting lineup.
 
-## Run Locally
+## Getting Started
 
-**Prerequisites:**  Node.js
+### Prerequisites
 
+*   [Node.js](https://nodejs.org/) (v18 or later recommended)
+*   A Yahoo Fantasy Sports account
+*   A Yahoo Developer application with a Client ID. You can create one on the [Yahoo Developer Network](https://developer.yahoo.com/).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Quickstart
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configure your Yahoo Client ID:**
+    - Open the file `services/authService.ts`.
+    - Replace the placeholder value `'YOUR_CLIENT_ID'` with your actual Yahoo application Client ID.
+    - **Important:** Ensure your Yahoo application's "Redirect URI" is set to `http://localhost:3000/callback`.
+
+4.  **Run the application:**
+    ```bash
+    npm run dev
+    ```
+    The application will be available at `http://localhost:3000`.
