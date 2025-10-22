@@ -1,30 +1,16 @@
 
-// IMPORTANT: Replace with your actual Yahoo application client ID.
-const CLIENT_ID = 'dj0yJmk9enFFTUtqdk1PSTJQJmQ9WVdrOWVtMW9iRWx4ZVdzbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWE3';
+const CLIENT_ID = import.meta.env.VITE_YAHOO_CLIENT_ID;
 
-// Production redirect URI - update this when you deploy
-const REDIRECT_URI = 'https://your-domain.com/callback'; // Replace with your production domain
-
-// Check if we're in development mode
-const isDevelopment = () => {
-  return window.location.hostname === 'localhost' || 
-         window.location.hostname === '127.0.0.1' ||
-         window.location.hostname.includes('ngrok.io') ||
-         process.env.NODE_ENV === 'development';
-};
+// Use Vercel's preview URL or a local URL for the redirect URI
+const REDIRECT_URI = import.meta.env.PROD
+  ? `https://${import.meta.env.VITE_VERCEL_URL}/callback`
+  : 'http://localhost:3000/callback';
 
 export const getLoginUrl = (): string => {
-  // Use mock authentication for local development
-  if (isDevelopment()) {
-    // Mock authentication for local development
-    setTimeout(() => {
-      localStorage.setItem('yahoo_access_token', 'mock_token_for_testing');
-      window.location.href = '/dashboard';
-    }, 1000);
-    return '#';
+  if (!CLIENT_ID) {
+    throw new Error("VITE_YAHOO_CLIENT_ID is not set. Please check your .env file or Vercel environment variables.");
   }
-  
-  // Real Yahoo OAuth for production
+
   const params = new URLSearchParams({
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
