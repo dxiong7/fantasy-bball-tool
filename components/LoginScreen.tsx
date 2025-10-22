@@ -1,12 +1,14 @@
 
 import React from 'react';
 import { YahooIcon, CheckCircleIcon } from './Icons';
+import { getLoginUrl } from '../services/authService';
 
-interface LoginScreenProps {
-  onLogin: () => void;
-}
+const LoginScreen: React.FC = () => {
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
+  const handleLogin = () => {
+    window.location.href = getLoginUrl();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto mt-10 md:mt-20">
       <div className="bg-dark-card p-8 rounded-xl shadow-2xl border border-dark-border">
@@ -33,7 +35,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
         </div>
 
         <button
-          onClick={onLogin}
+          onClick={handleLogin}
           className="w-full flex items-center justify-center px-6 py-3 bg-yahoo-purple text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200 text-lg shadow-lg"
         >
           <YahooIcon className="h-6 w-6 mr-3" />
