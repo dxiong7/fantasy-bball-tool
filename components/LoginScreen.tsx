@@ -1,12 +1,17 @@
 
 import React from 'react';
 import { YahooIcon, CheckCircleIcon } from './Icons';
+import { getLoginUrl } from '../services/authService';
 
-interface LoginScreenProps {
-  onLogin: () => void;
-}
+const LoginScreen: React.FC = () => {
+  const isDevelopment = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.includes('ngrok.io');
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
+  const handleLogin = () => {
+    window.location.href = getLoginUrl();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto mt-10 md:mt-20">
       <div className="bg-dark-card p-8 rounded-xl shadow-2xl border border-dark-border">
@@ -33,16 +38,26 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
         </div>
 
         <button
-          onClick={onLogin}
+          onClick={handleLogin}
           className="w-full flex items-center justify-center px-6 py-3 bg-yahoo-purple text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-200 text-lg shadow-lg"
         >
           <YahooIcon className="h-6 w-6 mr-3" />
           Connect with Yahoo Fantasy
         </button>
       </div>
-      <p className="text-xs text-gray-500 mt-6">
-        This is a demo application. Clicking connect will use mock data and does not actually connect to your Yahoo account.
-      </p>
+      
+      {isDevelopment ? (
+        <div className="mt-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+          <p className="text-sm text-blue-300 font-medium mb-2">🔧 Development Mode</p>
+          <p className="text-xs text-blue-200">
+            Using mock authentication for testing. In production, this will connect to your real Yahoo Fantasy account.
+          </p>
+        </div>
+      ) : (
+        <p className="text-xs text-gray-500 mt-6">
+          Secure OAuth connection to Yahoo Fantasy Sports.
+        </p>
+      )}
     </div>
   );
 };
